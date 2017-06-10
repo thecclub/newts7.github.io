@@ -1,0 +1,75 @@
+<head>
+  <head>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+      <link href="pure.css" rel="stylesheet">
+  </head>
+  <body ng-app="myapp" ng-controller="mycontroller" >
+
+<div ng-if="ongoingcontest" class="container">
+    <h1><center><u><b>Ongoing Contests</b></u></center></h1>
+    <table  class="table pure-table">
+
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Platform</th>
+            <th>EndTime</th>
+            <th>Url</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr  ng-repeat="t in ongoingcontest">
+
+            <td> {{t.Name}}</td>
+            <td>{{t.Platform}}</td>
+            <td>{{t.EndTime}}</td>
+            <td><a ng-href="{{t.url}}">link</a></td>
+
+        </tr>
+        </tbody>
+   </table>
+</div>
+
+
+
+
+<div ng-if="upcomingcontest" class="container">
+
+    <h1><center><u><b>UpcomingContests</b></u></center></h1>
+    <table  class="table pure-table">
+
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Platform</th>
+            <th>StartTime</th>
+            <th>EndTime</th>
+            <th>Duration</th>
+            <th>Url</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr  ng-repeat="t in upcomingcontest">
+
+            <td> {{t.Name}}</td>
+            <td>{{t.Platform}}</td>
+            <td>{{t.StartTime}}</td>
+            <td>{{t.EndTime}}</td>
+            <td>{{t.Duration}}</td>
+            <td><a ng-href="{{t.url}}">link</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+</body>
+</head>
