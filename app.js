@@ -1,53 +1,45 @@
-var app = angular.module('myapp', []);
+/**
+ * Created by ubuntu on 4/8/17.
+ */
+var app=angular.module('myapp',[]);
+app.controller("mycontroller",['$scope', function ($scope) {
+    $scope.searchText="";
+    $scope.change = function() {
+        $scope.result=[];
+        var value=$scope.searchText.toString();
+        console.log(value.length);
+        var upi=false;
+        for(var i=0;i<value.length;i++)
+        {
+            if((value.charAt([i]))==='@')
+            {
+                upi=true;
+            }
+        }
+        if(upi) {
+            $scope.result.push("upi");
+        }
+        else
+        {
+            var ismobile=false,isbank=false;
+            if(value.length<=10)
+            {
+                if(value.charAt(0)==='9'||value.charAt(0)==='8'||value.charAt(0)==='7'||value.charAt(0)=='6')
+                    ismobile=true;
+                else
+                    ismobile=false;
+                isbank=true;
+            }
+            else
+            {
+                isbank=true;
+                ismobile=false;
+            }
 
-app.controller("mycontroller",['$scope','$http',
-function ($scope,$http,$q,$timeout) {
-console.log("hello world!");
-$scope.array=[1,2,3,4];
-$http.get('https://contesttrackerapi.herokuapp.com/android/')
-    .success(function (response) {
-console.log(response);
-var ongoingContest=response.result.ongoing;
-var upcomingContest=response.result.upcoming;
-
-var ongoingContests=[];
-for(var i=0;i<ongoingContest.length;i++)
-  {
-    var EndTime=ongoingContest[i].EndTime;
-    var Name=ongoingContest[i].Name;
-    var platform=ongoingContest[i].Platform;
-    var url=ongoingContest[i].url;
-    ongoingContests.push({
-    "Name" : Name,
-    "Platform": platform,
-    "EndTime" : EndTime,
-      "url" : url
-    });
-  }
-console.log(ongoingContests.length);
-$scope.ongoingcontest=ongoingContests;
-var upcomingContests=[];
-for(var i=0;i<upcomingContest.length;i++)
-  {
-      var StartTime=upcomingContest[i].StartTime;
-      var EndTime=upcomingContest[i].EndTime;
-      var Name=upcomingContest[i].Name;
-      var platform=upcomingContest[i].Platform;
-      var url=upcomingContest[i].url;
-      var Duration=upcomingContest[i].Duration;
-      upcomingContests.push({
-          "Name" : Name,
-          "Platform": platform,
-          "StartTime" : StartTime,
-          "EndTime" : EndTime,
-          "url" : url,
-          "Duration" : Duration
-      });
-  }
-  console.log(upcomingContests.length);
-  $scope.upcomingcontest=upcomingContests;
-
-
-    });
-
+            if(isbank)
+                $scope.result.push("Bank account number");
+            if(ismobile)
+                $scope.result.push(("Mobile Number"));
+        }
+    };
 }]);

@@ -1,74 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <head>
-  <script src="angular.js"></script>
-  <script src="app.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-  </head>
-  <body ng-app="myapp" ng-controller="mycontroller" >
-
-<div ng-if="ongoingcontest" class="container">
-    <h1><center><u><b>Ongoing Contests</b></u></center></h1>
-    <table  class="table pure-table">
-
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Platform</th>
-            <th>EndTime</th>
-            <th>Url</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr  ng-repeat="t in ongoingcontest">
-
-            <td> {{t.Name}}</td>
-            <td>{{t.Platform}}</td>
-            <td>{{t.EndTime}}</td>
-            <td><a ng-href="{{t.url}}">link</a></td>
-
-        </tr>
-        </tbody>
-   </table>
-</div>
-
-
-
-
-<div ng-if="upcomingcontest" class="container">
-
-    <h1><center><u><b>UpcomingContests</b></u></center></h1>
-    <table  class="table pure-table">
-
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Platform</th>
-            <th>StartTime</th>
-            <th>EndTime</th>
-            <th>Duration</th>
-            <th>Url</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr  ng-repeat="t in upcomingcontest">
-
-            <td> {{t.Name}}</td>
-            <td>{{t.Platform}}</td>
-            <td>{{t.StartTime}}</td>
-            <td>{{t.EndTime}}</td>
-            <td>{{t.Duration}}</td>
-            <td><a ng-href="{{t.url}}">link</a></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-
-
-
-</body>
+    <meta charset="UTF-8">
+    <script src="angular.js"></script>
+    <script src="app.js"></script>
+    <title></title>
 </head>
+
+<body ng-app="myapp" ng-controller="mycontroller">
+
+<div >
+<h3>Enter your input:</h3>
+        <input type="text" class="form-control" ng-model="searchText"  ng-change="change()" >
+
+        <div ng-show="searchText" ng-repeat="t in result">
+            {{t}}
+        </div>
+</div>
+</body>
+</html>
