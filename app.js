@@ -2,7 +2,7 @@
  * Created by ubuntu on 4/8/17.
  */
 var app=angular.module('myapp',[]);
-app.controller("mycontroller",['$scope', function ($scope) {
+app.controller("mycontroller",['$scope','$http',function ($scope,$http,$q,$timeout) {
     $scope.searchText="";
     $scope.change = function() {
         $scope.result=[];
@@ -16,30 +16,32 @@ app.controller("mycontroller",['$scope', function ($scope) {
                 upi=true;
             }
         }
-        if(upi) {
+        if(upi)
+        {
             $scope.result.push("upi");
         }
         else
         {
             var ismobile=false,isbank=false;
-            if(value.length<=10)
-            {
-                if(value.charAt(0)==='9'||value.charAt(0)==='8'||value.charAt(0)==='7'||value.charAt(0)=='6')
-                    ismobile=true;
-                else
-                    ismobile=false;
-                isbank=true;
-            }
-            else
-            {
-                isbank=true;
-                ismobile=false;
-            }
+           if(value.length!==10)
+           {
+               $scope.result.push("Bank Account Number");
+           }
+           else
+           {
+               $http.get("http://apilayer.net/api/validate?access_key=c48ba011363cd81c74ce3f60b121444a&number="+value+"&country_code=IN&format=1")
+                   .success(function (response) {
+                       var valid=response.valid;
+                       if(valid===true)
+                           $scope.result.push("Mobile Number");
+                       else
+                           $scope.result.push("Bank Account Number")
 
-            if(isbank)
-                $scope.result.push("Bank account number");
-            if(ismobile)
-                $scope.result.push(("Mobile Number"));
+                   })
+
+           }
+
+
         }
     };
 }]);
